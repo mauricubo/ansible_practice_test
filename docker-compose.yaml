@@ -8,7 +8,8 @@ services:
       environment:
          - TZ="America/Lima"
       networks:
-         - ansible.lab
+         ansible.lab:
+            ipv4_address: 172.24.0.2
       volumes:
         - "./ansible_files:/home/ubuntu/ansible"
    ubuntu1:
@@ -16,23 +17,33 @@ services:
       image: mauricubo/ubuntusshd
       ports:
          - "2223:22"
+         - "5001:5000"
       networks:
-         - ansible.lab
+         ansible.lab:
+            ipv4_address: 172.24.0.3
    ubuntu2:
       hostname: ubuntu2
       image: mauricubo/ubuntusshd
       ports:
          - "2224:22"
+         - "5002:5000"
       networks:
-         - ansible.lab
+         ansible.lab:
+            ipv4_address: 172.24.0.4
    ubuntu3:
       hostname: ubuntu3
       image: mauricubo/ubuntusshd
       ports:
          - "2225:22"
       networks:
-         - ansible.lab
+         ansible.lab:
+            ipv4_address: 172.24.0.5
       
 networks:
    ansible.lab:
       name: ansible.lab
+      driver: bridge
+      ipam:
+         config:
+            -  subnet: 172.24.0.0/24
+               gateway: 172.24.0.1

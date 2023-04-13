@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+   pivot:
+      hostname: pivot
+      image: mauricubo/ubuntu_ansible_sshd
+      ports:
+         - "2222:22"
+      environment:
+         - TZ="America/Lima"
+      networks:
+         - ansible.lab
+      volumes:
+        - "./ansible_files:/home/ubuntu/ansible"
+   ubuntu1:
+      hostname: ubuntu1
+      image: mauricubo/ubuntusshd
+      ports:
+         - "2223:22"
+      networks:
+         - ansible.lab
+   ubuntu2:
+      hostname: ubuntu2
+      image: mauricubo/ubuntusshd
+      ports:
+         - "2224:22"
+      networks:
+         - ansible.lab
+   ubuntu3:
+      hostname: ubuntu3
+      image: mauricubo/ubuntusshd
+      ports:
+         - "2225:22"
+      networks:
+         - ansible.lab
+      
+networks:
+   ansible.lab:
+      name: ansible.lab

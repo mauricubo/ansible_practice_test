@@ -1,0 +1,54 @@
+---
+- name: Test Jinja2 Templating
+  hosts: localhost
+  vars:
+    first_name: james
+    last_name: bond
+  tasks:
+  - name: Variables
+    debug:
+      msg: 'The name is {{ last_name }}! {{ first_name }} {{ last_name }}!'
+  
+  - name: Filters 1
+    debug:
+      msg: 'The name is {{ last_name | title }}! {{ first_name | title }} {{ last_name | title }}!'
+  
+  - name: Filters 2
+    vars:    
+      array_of_numbers:      
+        - 12      
+        - 34      
+        - 06      
+        - 34
+    debug:
+      msg: 'Lowest = {{ array_of_numbers | min }}'
+  
+  - name: Filter 3
+    vars:
+      web_dependencies:
+        - python
+        - python-setuptools
+        - python-dev
+        - build-essential
+        - python-pip
+        - python-mysqldb
+      sql_dependencies:
+        - python
+        - python-mysqldb
+    debug:
+      msg: '- {{ item }}'
+    with_items: '{{ web_dependencies | union(sql_dependencies) }}'
+  
+  - name: Filter 4
+    file:
+      path: /tmp/random_file_{{ 1000 | random }}
+      state: touch
+  
+  - name: Install dependencie for the next Filter
+    apt: name=python3-netaddr state=present
+    
+  - name: Filter 5
+    vars:
+      ip_address: 192.168.0.10
+    debug:
+      msg: IP Address = {{ ip_address | ansible.utils.ipaddr }}

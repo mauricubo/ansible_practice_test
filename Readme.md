@@ -1,2 +1,4 @@
-# Task 1
-## Create 2 webservers installing components in ubuntu1 and ubuntu2
+# Section 6
+## Strategies
+
+[official doc](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html)

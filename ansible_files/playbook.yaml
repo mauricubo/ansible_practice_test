@@ -10,3 +10,27 @@
   roles:
     - python
     - flask_web
+
+- name: Monitor Web Application
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Copy script to location
+      copy: src=monitor_webapp.py dest=/opt/monitor_webapp.py
+    
+    - name: Run permission
+      file:
+        path: /opt/monitor_webapp.py
+        mode: u+xr
+    
+    - command: python3 /opt/monitor_webapp.py
+      async: 120
+      poll: 0
+      register: webapp_result
+    
+    - name: Check status of tasks
+      async_status: jid={{ webapp_result.ansible_job_id }}
+      register: job_result
+      until: job_result.finished
+      retries: 30
+      become: yes

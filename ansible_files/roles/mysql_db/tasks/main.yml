@@ -5,6 +5,13 @@
     - mysql-client
     - mysql-server
 
+- name: Bind address for public access
+  lineinfile:
+    path: "/etc/mysql/mysql.conf.d/mysqld.cnf"
+    state: present
+    regexp: "^bind-address.*="
+    line: "bind-address=0.0.0.0"
+
 - name: Start MySQL Service
   shell: service mysql start
 
@@ -16,6 +23,7 @@
     name: "{{ db_user }}"
     password: "{{ db_password }}"
     priv: '*.*:ALL'
+    host: '%'
     state: present
     check_implicit_admin: true
 

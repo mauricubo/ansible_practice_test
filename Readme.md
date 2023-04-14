@@ -1,4 +1,3 @@
-# Task 1
-## Create 2 webservers installing components in ubuntu1 and ubuntu2
-## Use Vars
-## Separate into many files
+# Section 4
+## Using roles
+- inside roles folder execute `ansible-galaxy init mysql_db` to create the role

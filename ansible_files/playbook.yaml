@@ -5,8 +5,8 @@
 #    - 2
 #    - 3
 #    - 5
+  #serial: 20% # 20% of the servers
   strategy: free #each host run until the end of the play as fast as it can
-  serial: 20% # 20% of the servers
   hosts: webservers
   vars:    
     db_name: employee_db    

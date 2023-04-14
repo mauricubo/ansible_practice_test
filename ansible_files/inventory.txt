@@ -1,3 +1,1 @@
-ubuntu1 ansible_host=172.24.0.4 ansible_ssh_pass=ubuntu ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ubuntu2 ansible_host=172.24.0.3 ansible_ssh_pass=ubuntu ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ubuntu3 ansible_host=172.24.0.2 ansible_ssh_pass=ubuntu ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ubuntu1 ansible_host=172.24.0.3 ansible_ssh_pass=ubuntu ansible_sudo_pass=ubuntu

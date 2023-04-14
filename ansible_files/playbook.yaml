@@ -1,6 +1,7 @@
 ---
 - name: Test Jinja2 Templating
-  hosts: localhost
+  hosts: ubuntu1
+  become: yes
   vars:
     first_name: james
     last_name: bond

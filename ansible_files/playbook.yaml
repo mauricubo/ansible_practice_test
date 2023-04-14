@@ -1,12 +1,6 @@
 ---
 - name: Deploy a web application
-  #serial: 2 # limit execution on just 2 servers at once
-#  serial: # First start with 2 in parallel, then with 3 and finally with 5
-#    - 2
-#    - 3
-#    - 5
-  #serial: 20% # 20% of the servers
-  strategy: free #each host run until the end of the play as fast as it can
+  any_errors_fatal: True # stop the execution if any server has an error.
   hosts: webservers
   vars:    
     db_name: employee_db    
@@ -66,3 +60,11 @@
     
     - name: Start Web Server
       shell: FLASK_APP=/opt/app.py nohup flask run --host=0.0.0.0 &
+    
+    # needs previous email configuration 
+    - name: "Send notification email"
+      mail:
+        to: devops@corp.com
+        subject: Server Deployed!
+        body: Web Server Deployed Successfully
+      ignore_errors: yes
